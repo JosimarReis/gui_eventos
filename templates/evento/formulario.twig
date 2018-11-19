@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+Eventos | Eventos
+{% endblock %}
+{% block breadcrumbTitulo %}
+Eventos| {{ titulo }}
+{% endblock %}
+{% block breadcrumb %}
+<li><a href="/">Início</a></li>
+<li><a href="/admin/eventos">Eventos</a></li>
+<li>{{ titulo }}</li>
+{% endblock %}
+{% block body %}
+<div class="content">
+    <div class="animated fadeIn">
+        <div class="col-lg-8 col-sm-12 col-md-12 col-12 ">
+            <div class="card">
+            <div class="card-body card-block">
+
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            {{ form_errors(form, {'attr':{'class':'alert alert-danger'}}) }}
+            {% for message in app.flashes('notice') %}
+                <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show ">
+                   <span class="badge badge-pill badge-danger">Local Ocupado</span><br>
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            <div class="form-group">
+                {{ form_label(form.nome) }}
+                {{ form_errors(form.nome, {'attr':{'class':'alert alert-danger'}}) }}
+                {{ form_widget(form.nome, {'attr':{'class':'form-control'}}) }}
+            </div>
+            <div class="form-group col-12">
+                {{ form_label(form.data) }}
+                {{ form_errors(form.data, {'attr':{'class':'alert alert-danger'}}) }}
+                {{ form_widget(form.data, {'attr':{'class':''}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.descricao) }}
+                {{ form_errors(form.descricao, {'attr':{'class':'alert alert-danger'}}) }}
+                {{ form_widget(form.descricao, {'attr':{'class':'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.categoria) }}
+                {{ form_errors(form.categoria, {'attr':{'class':'alert alert-danger'}}) }}
+                {{ form_widget(form.categoria, {'attr':{'class':'form-control'}}) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.local) }}
+                {{ form_errors(form.local, {'attr':{'class':'alert alert-danger'}}) }}
+                {{ form_widget(form.local, {'attr':{'class':'form-control'}}) }}
+            </div>
+                        
+        </div>
+            <div class="card-footer">
+                    {{ form_widget(form.salvar, {'attr':{'class':'btn btn-primary btn-sm  text-dark'}}) }}
+
+                <a href="/admin/eventos" class="btn-link btn-danger btn-sm text-dark">Cancelar</a>
+                
+              </div>
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+    </div>
+  </div>
+{% endblock %}

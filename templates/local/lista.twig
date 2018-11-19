@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+Eventos | Locais
+{% endblock %}
+{% block breadcrumbTitulo %}
+Locais | <a href="/admin/locais/novo" class="btn btn-link btn-sm"><i class="fa fa-plus"></i> novo</a>
+{% endblock %}
+{% block breadcrumb %}
+<li><a href="/">Início</a></li>
+<li>Locais</li>
+{% endblock %}
+
+{% block style %}
+
+    <!-- DataTables CSS -->
+    <link href="{{ asset('/assets/vendor/datatables-plugins/dataTables.bootstrap.css') }}" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="{{ asset('/assets/vendor/datatables-responsive/dataTables.responsive.css') }}" rel="stylesheet">
+
+{% endblock %}
+{% block body %}
+
+<div class="content">
+  <div class="animated fadeIn">
+      <div class="row">
+
+          <div class="col-md-12">
+              <div class="card">
+                  <div class=" table-stats order-table ov-h">
+                    <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Logradouro</th>
+                                        <th>Cidade</th>
+                                        <th># </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% if not locais %}
+                                <tr class="odd gradeX ">
+                                    <td colspan="4" class="text-center"> Nenhum registro encontrado</td>
+                                </tr>
+                                {% endif %}
+                                {% for local in locais %}
+                                    <tr class="odd gradeX ">
+                                        <td>{{local.nome}}</td>
+                                        <td>{{local.logradouro}} {{local.numero}}</td>
+                                        <td>{{local.cidade.nome}} - {{local.cidade.estado.sigla}}</td>
+                                        <td class="text-right">
+                                        <a href="/admin/locais/novo" class="btn btn-success btn-circle" title="Novo"><i class="fa fa-plus-square"></i></a>
+                                        <a href="/admin/locais/alterar/{{local.id}}" class="btn btn-warning btn-circle" title="Alterar"><i class="fa  fa-pencil  "></i></a>
+                                        <a href="#" id="btn" class="btn btn-danger btn-circle"
+                                        data-toggle="modal" data-target="#myModal"
+                                        onClick="document.getElementById('modallocalNome').innerHTML='{{local.nome}}';document.getElementById('modallocalId').setAttribute('href','/admin/locais/remover/{{local.id}}');"
+                                         title="Remover"><i class="fa fa-times"></i></a>
+                                         <script>
+                                         </script>
+                                        </td>
+                                    </tr>
+                                   {% endfor %}
+                                </tbody>
+                            </table>
+                    </div>
+              </div>
+          </div>
+
+
+      </div>
+  </div><!-- .animated -->
+</div><!-- .content -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Remover local</h4>
+            </div>
+            <div class="modal-body">
+            Quer remover a local <strong>"<span id="modallocalNome"></span>"</strong>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <a href="#" id="modallocalId" class="btn btn-danger">Remover</a>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+{% endblock %}
+{% block javascript %}
+    <!-- DataTables JavaScript -->
+    <script src="{{ asset('assets/vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/datatables-plugins/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/datatables-responsive/dataTables.responsive.js') }}"></script>
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+    </script>
+{% endblock %}

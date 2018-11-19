@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Eventos | Imagens
+{% endblock %}
+{% block breadcrumbTitulo %}
+{{evento.nome }} | Imagens <a href="/admin/eventos/{{evento.id}}/novo" class="btn btn-link btn-sm"><i class="fa fa-plus"></i> novo</a>
+{% endblock %}
+{% block breadcrumb %}
+<li><a href="/">Início</a></li>
+<li><a href="/admin/eventos">Eventos</a></li>
+<li>{{evento.nome}}</li>
+<li>Imagens</li>
+
+{% endblock %}
+{% block body %}
+
+<div class="content">
+    <div class="animated fadeIn">
+        <div class="row text-center">
+            {% if not evento.imagens %}
+            <div class="alert alert-primary align-content-center" role="alert">
+                Nenhuma imagem cadastrada | <a href="/admin/eventos/{{evento.id}}/novo" class="btn btn-link btn-sm"><i class="fa fa-plus"></i> cadastrar</a>
+            </div>
+            {% endif %}
+
+            {% for imagem in evento.imagens %}
+            {{ dump(imagem) }}
+            <div class="col-md-3 ">
+                <div class="card">
+                      <img class="card-img-top" src="data:image/png;base64,{{imagem.imagem}}">
+                    
+                    <div class="card-footer text-right">
+                        <a href="/imagem/remover/{{imagem.id}}" title="Remover imagem">
+                            <i class="fa fa-ban pr-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}

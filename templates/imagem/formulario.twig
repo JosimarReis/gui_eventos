@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+Eventos | Imagens
+{% endblock %}
+{% block breadcrumbTitulo %}
+Imagens de {{ evento.nome }}
+{% endblock %}
+{% block breadcrumb %}
+<li><a href="/">Início</a></li>
+<li><a href="/admin/eventos">eventos</a></li>
+<li><a href="/admin/eventos/{{evento.id}}">{{ evento.nome }} / Imagens</a></li>
+
+{% endblock %}
+{% block body %}
+<div class="content">
+    <div class="animated fadeIn">
+        <div class="col-lg-8 col-sm-12 col-md-12 col-12 ">
+            <div class="card">
+            <div class="card-body card-block">
+
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            {{ form_errors(form, {'attr':{'class':'alert alert-danger'}}) }}
+
+            <div class="form-group">
+                {{ form_label(form.imagem) }}
+                {{ form_errors(form.imagem, {'attr':{'class':'alert alert-danger'}}) }}
+                {{ form_widget(form.imagem, {'attr':{'class':'form-control'}}) }}
+            </div>
+            
+                        
+        </div>
+            <div class="card-footer">
+                    {{ form_widget(form.salvar, {'attr':{'class':'btn btn-primary btn-sm  text-dark'}}) }}
+
+                <a href="/admin/eventos" class="btn-link btn-danger btn-sm text-dark">Cancelar</a>
+                
+              </div>
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+    </div>
+  </div>
+{% endblock %}
