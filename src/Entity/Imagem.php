@@ -17,7 +17,7 @@ class Imagem
     private $id;
 
     /**
-     * @ORM\Column(type="blob")
+     * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Por favor selecione uma imagem.")
      * @Assert\File(mimeTypes={ "image/*" })
      */
@@ -44,7 +44,7 @@ class Imagem
 
         return $this;
     }
-
+   
     public function getEvento(): ?Evento
     {
         return $this->evento;

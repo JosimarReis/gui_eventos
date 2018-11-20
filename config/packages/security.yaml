@@ -30,6 +30,7 @@ security:
             pattern: ^/
 
             http_basic: ~
+            access_denied_url: /
             guard:
                 authenticators:
                     - App\Security\LoginFormAutenticacaoAuthenticator

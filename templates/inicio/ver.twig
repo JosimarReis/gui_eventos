@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Eventos | {{evento.nome}} 
+{% endblock %}
+{% block breadcrumbTitulo %}
+Vizualizar evento
+{% endblock %}
+{% block breadcrumb %}
+<li><a href="/">Eventos</a></li>
+<li>{{evento.nome}}</li>
+{% endblock %}
+{% block stylesheets %}
+<script>
+jQuery(function($){
+    jQuery('.carousel').carousel()
+});
+</script>
+{% endblock %}
+
+
+{% block body %}
+
+<div class="content">
+    <div class="animated fadeIn">
+        <div class="row ">
+            <div class="col col-lg-6 card">
+            <div class="card-body">
+                    <h2 class="pb-2 display-5">{{ evento.nome}} </h2>
+                    <address class="mt-3">
+                        <strong>{{evento.local.nome}}</strong><br>
+                        {{evento.local.logradouro ~' '~ evento.local.numero}}<br>
+                        {{evento.local.complemento}}<br>
+                        {{evento.local.cidade.nome ~' - '~ evento.local.cidade.estado.sigla}}<br>
+
+                        <br>
+                        {{evento.data|date("d/m/Y H:i")}}<br>
+                        <small>{{evento.visitas}} visitas</small><br>
+                        <strong>Descrição:</strong>
+                        <p> {{evento.descricao}}</p>
+                    </address>
+
+                </div>
+            </div>
+            <div class="col col-lg-6 card">
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                    {% for imagem in evento.imagens %}
+                        <div class="carousel-item {{ loop.index == 1 ? 'active':''}}">
+                        <img class="d-block w-100" src="{{ asset('uploads/eventos/') }}{{ imagem.imagem}}">
+                        </div>
+                    {% endfor %}
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,23 +1,50 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-Eventos | Início | Admin
+Eventos | Início 
 {% endblock %}
 {% block breadcrumbTitulo %}
-Eventos | <a href="/admin/eventos/novo" class="btn btn-link btn-sm"><i class="fa fa-plus"></i> novo evento</a>
+Eventos disponíveis
 {% endblock %}
 {% block breadcrumb %}
-<li>Início</li>
+<li>Eventos</li>
 {% endblock %}
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<div class="content">
+    <div class="animated fadeIn">
+        <div class="row text-center">
+            {% if not eventos %}
+            <div class="alert alert-primary align-content-center" role="alert">
+                Nenhum evento disponível 
+            </div>
+            {% endif %}
 
-    {{ dump(app.user) }}
+            {% for evento in eventos %}
+
+
+            <div class="col-md-4">
+                        <div class="card">
+                            <img class="card-img-top" src="{{ asset('uploads/eventos/') }}{{ evento.imagens[0].imagem}}" >
+                            <div class="card-body">
+                                <div class="mx-auto d-block">
+                                    <h5 class="text-sm-center mt-2 mb-1">{{evento.nome}}</h5>
+
+                                </div>
+                                <hr>
+                                <div class="card-text text-sm-center">
+                                    <div class="location text-sm-center"><i class="fa fa-map-marker"></i> {{evento.local.nome}} em {{evento.local.cidade.nome}}-{{evento.local.cidade.estado.sigla}}</div>
+                                    <div class="location text-sm-center"><i class="fa fa-calendar"></i> {{evento.data|date("d/m/Y H:i")}}</div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <strong class="card-title mb-3"><a href="/ver/{{evento.id}}">Ver mais</a></strong>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
+
+    </div>
 </div>
 {% endblock %}

@@ -25,14 +25,14 @@ Eventos | Imagens
             {% endif %}
 
             {% for imagem in evento.imagens %}
-            {{ dump(imagem) }}
+            
             <div class="col-md-3 ">
                 <div class="card">
-                      <img class="card-img-top" src="data:image/png;base64,{{imagem.imagem}}">
+                      <img class="card-img-top" src="{{ asset('uploads/eventos/' ~ imagem.imagem) }}">
                     
-                    <div class="card-footer text-right">
-                        <a href="/imagem/remover/{{imagem.id}}" title="Remover imagem">
-                            <i class="fa fa-ban pr-1"></i>
+                    <div class="card-footer text-center">
+                        <a href="/admin/eventos/{{evento.id}}/remover/{{imagem.id}}" title="Remover imagem" class="payment-button-amount">
+                            <i class="fa fa-ban pr-1"></i> remover
                         </a>
                     </div>
                 </div>

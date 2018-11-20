@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class RegistroUsuarioController extends AbstractController
 {
@@ -21,9 +22,11 @@ class RegistroUsuarioController extends AbstractController
     public function index(Request $request, UserPasswordEncoderInterface $encoder)
     {
         $usuario = new Usuario();
+
         //cria o formulario de registro
         $form = $this->createFormBuilder($usuario)
             ->add('nome', TextType::class)
+            ->add('roles', HiddenType::class,['data'=>'ROLE_USER'])
             ->add('email', TextType::class)
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
@@ -42,16 +45,13 @@ class RegistroUsuarioController extends AbstractController
             //criptografa a senha
             $encoded = $encoder->encodePassword($usuario, $usuario->getPassword());
             $usuario->setPassword($encoded);
-            $usuario->setRoles(['ROLE_USER']);
             //chama conexao com banco de dados e salva o registro do usuario
             $em = $this->getDoctrine()->getManager();
             $em->persist($usuario);
             $em->flush();
 
-
-
             //redireciona para a pagina inicial
-            return $this->redirectToRoute('inicio');
+            return $this->redirectToRoute('app_login');
 
         }
         //renderiza o template com o formulario
