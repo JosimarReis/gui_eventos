@@ -42,6 +42,12 @@ class InicioController extends Controller
         if (!$evento) {
             return $this->redirect('/');
         }
+
+        $dql = "SELECT e FROM \App\Entity\Evento e ORDER BY e.id DESC";
+        $query = $em->createQuery($dql);
+        $query->setMaxResults(5);
+        $ultimos = $query->getResult();
+
         $visita = $evento->getVisitas() + 1;
 
         $evento->setVisitas($visita);
@@ -73,6 +79,7 @@ class InicioController extends Controller
 
         return $this->render('inicio/ver.twig', [
             'evento' => $evento,
+            'ultimos' => $ultimos,
             'form' => $form->createView()
         ]);
     }
