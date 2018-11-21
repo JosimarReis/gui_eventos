@@ -52,6 +52,7 @@ class Comentario
     public function __construct()
     {
         $this->resposta = new ArrayCollection();
+        $this->data = new \DateTime();
     }
 
     public function getId(): ?int

@@ -34,6 +34,7 @@ Eventos | <a href="/admin/eventos/novo" class="btn btn-link btn-sm"><i class="fa
                                         <th>Nome</th>
                                         <th>Data</th>
                                         <th>Local</th>
+                                        <th><i class="fa fa-eye"></i> | <i class="fa fa-comment"></i></th>
                                         <th># </th>
                                     </tr>
                                 </thead>
@@ -50,6 +51,7 @@ Eventos | <a href="/admin/eventos/novo" class="btn btn-link btn-sm"><i class="fa
                                         </td>
                                         <td>{{evento.data|date("d/m/Y H:i")}}</td>
                                         <td>{{evento.local.nome}} | {{evento.local.cidade.nome}} - {{evento.local.cidade.estado.sigla}}</td>
+                                        <td><i class="fa fa-eye"></i> {{evento.visitas}} | <i class="fa fa-comment"></i> {{evento.comentarios|length}} </td>
                                         <td class="text-right">
                                         <a href="/admin/eventos/{{evento.id}}" class="btn btn-info btn-circle" title="Imagens"><i class="fa  fa-picture-o "></i></a>
                                         <a href="/admin/eventos/novo" class="btn btn-success btn-circle" title="Novo"><i class="fa fa-plus-square"></i></a>
